@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { fetchNotes } from "../../services/noteService";
 import NoteList from "../NoteList/NoteList";
 import Pagination from "../Pagination/Pagination";
@@ -22,6 +22,7 @@ export default function App() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["notes", page, search],
     queryFn: () => fetchNotes({ page, perPage: 12, search }),
+    placeholderData: keepPreviousData,
   });
 
   return (
